@@ -43,15 +43,15 @@ podTemplate(
         stage ('Docker') {
             container ('docker') {
                 withDockerRegistry([credentialsId: 'dockerhub']) {
-                    sh "docker build -t ${repository}:${commitId} ."
-                    sh "docker push ${repository}:${commitId}"
+                    sh "docker build -t nishantchauhan/hcl-test:${commitId} ."
+                    sh "docker push nishantchauhan/hcl-test:${commitId}"
                 }    
             }
         }
         stage ('Deploy') {
             container ('helm') {
                 sh "/helm init --client-only --skip-refresh"
-                sh "/helm upgrade --install --wait --set image.repository=${repository},image.tag=${commitId} hello hello"
+                sh "/helm upgrade --install --wait --set image.repository=nishantchauhan/hcl-test,image.tag=${commitId} hello hello"
             }
         }
     }
