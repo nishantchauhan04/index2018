@@ -51,7 +51,7 @@ podTemplate(
         stage ('Deploy') {
             container ('helm') {
                 sh "/helm init --client-only --skip-refresh"
-                sh "/helm upgrade --verbose --install --wait --set image.repository=nishantchauhan/hcl-test,image.tag=${commitId} hello hello"
+                sh "/helm upgrade --debug --install --wait --set image.repository=nishantchauhan/hcl-test,image.tag=${commitId} hello hello"
             }
         }
     }
